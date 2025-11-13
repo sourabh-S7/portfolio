@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Instagram, Mail, Phone, Code2, Rocket, Award, Users, Dumbbell, ShoppingCart, Sparkles, ArrowRight, Database, Layers, Palette, Terminal, Cpu, Globe, FileText, BookOpen, Zap } from 'lucide-react';
-import { Analytics } from "@vercel/analytics/react";
 
 // ==================== STARFIELD COMPONENT ====================
 const Starfield = ({ speed = 1, density = 70 }) => {
@@ -116,65 +115,108 @@ const LightsaberScrollbar = () => {
   const bladeHeight = scrollProgress;
 
   return (
-    <div className="fixed right-5 sm:right-6 md:right-8 top-0 h-full w-8 z-50 pointer-events-none flex flex-col items-center">
+    <div className="fixed right-4 sm:right-6 md:right-8 top-0 h-full w-10 z-50 pointer-events-none flex flex-col items-center">
       {/* Hilt at the top */}
       <div className="mt-4">
-        <svg width="32" height="60" viewBox="0 0 32 60">
+        <svg width="40" height="70" viewBox="0 0 40 70">
           <defs>
             <linearGradient id="hiltGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#1a1a1a" />
+              <stop offset="0%" stopColor="#0a0a0a" />
+              <stop offset="30%" stopColor="#1a1a1a" />
               <stop offset="50%" stopColor="#2a2a2a" />
+              <stop offset="70%" stopColor="#1a1a1a" />
+              <stop offset="100%" stopColor="#0a0a0a" />
+            </linearGradient>
+            <linearGradient id="gripGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#1a1a1a" />
+              <stop offset="50%" stopColor="#3a3a3a" />
               <stop offset="100%" stopColor="#1a1a1a" />
             </linearGradient>
+            <radialGradient id="buttonGlow">
+              <stop offset="0%" stopColor="#4169E1" stopOpacity="1"/>
+              <stop offset="100%" stopColor="#4169E1" stopOpacity="0"/>
+            </radialGradient>
           </defs>
-          {/* Main hilt body */}
-          <rect x="8" y="0" width="16" height="50" fill="url(#hiltGradient)" stroke="#000" strokeWidth="1" rx="3"/>
-          <rect x="10" y="5" width="12" height="40" fill="#2a2a2a" rx="2"/>
-          {/* Grip lines */}
-          <line x1="10" y1="15" x2="22" y2="15" stroke="#3a3a3a" strokeWidth="1"/>
-          <line x1="10" y1="20" x2="22" y2="20" stroke="#3a3a3a" strokeWidth="1"/>
-          <line x1="10" y1="25" x2="22" y2="25" stroke="#3a3a3a" strokeWidth="1"/>
-          <line x1="10" y1="30" x2="22" y2="30" stroke="#3a3a3a" strokeWidth="1"/>
-          <line x1="10" y1="35" x2="22" y2="35" stroke="#3a3a3a" strokeWidth="1"/>
-          {/* Button */}
-          <circle cx="16" cy="10" r="3" fill="#4a4a4a" stroke="#5a5a5a" strokeWidth="1"/>
-          <circle cx="16" cy="10" r="1.5" fill="#4169E1" opacity="0.8">
-            <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+          
+          {/* Main hilt body with more detail */}
+          <rect x="6" y="0" width="28" height="60" fill="url(#hiltGradient)" stroke="#000" strokeWidth="1.5" rx="4"/>
+          
+          {/* Inner body detail */}
+          <rect x="9" y="3" width="22" height="54" fill="#1a1a1a" rx="3"/>
+          
+          {/* Grip sections with improved detail */}
+          <rect x="8" y="15" width="24" height="3" fill="url(#gripGradient)" rx="1"/>
+          <rect x="8" y="20" width="24" height="3" fill="url(#gripGradient)" rx="1"/>
+          <rect x="8" y="25" width="24" height="3" fill="url(#gripGradient)" rx="1"/>
+          <rect x="8" y="30" width="24" height="3" fill="url(#gripGradient)" rx="1"/>
+          <rect x="8" y="35" width="24" height="3" fill="url(#gripGradient)" rx="1"/>
+          <rect x="8" y="40" width="24" height="3" fill="url(#gripGradient)" rx="1"/>
+          
+          {/* Activation button with glow */}
+          <circle cx="20" cy="10" r="4" fill="#2a2a2a" stroke="#4a4a4a" strokeWidth="1.5"/>
+          <circle cx="20" cy="10" r="2.5" fill="#4169E1" opacity="0.9" filter="url(#buttonGlow)">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
           </circle>
-          {/* Emitter */}
-          <rect x="10" y="48" width="12" height="8" fill="#1a1a1a" stroke="#000" strokeWidth="1" rx="1"/>
+          
+          {/* Control panel details */}
+          <rect x="12" y="48" width="4" height="2" fill="#4169E1" opacity="0.5" rx="0.5"/>
+          <rect x="18" y="48" width="4" height="2" fill="#DC143C" opacity="0.5" rx="0.5"/>
+          <rect x="24" y="48" width="4" height="2" fill="#32CD32" opacity="0.5" rx="0.5"/>
+          
+          {/* Emitter section */}
+          <rect x="8" y="58" width="24" height="10" fill="#0a0a0a" stroke="#000" strokeWidth="1.5" rx="2"/>
+          <rect x="10" y="60" width="20" height="6" fill="#1a1a1a" rx="1"/>
+          
+          {/* Emitter aperture */}
+          <ellipse cx="20" cy="66" rx="8" ry="2" fill="#0a0a0a" stroke="#4169E1" strokeWidth="0.5" opacity="0.6"/>
         </svg>
       </div>
       
-      {/* Blade - grows as you scroll - Blue color */}
+      {/* Blade - grows as you scroll - Enhanced Blue color */}
       <div 
-        className="relative w-3 transition-all duration-100"
-        style={{ height: `calc(${bladeHeight}% - 80px)`, maxHeight: 'calc(100vh - 100px)' }}
+        className="relative w-4 transition-all duration-100"
+        style={{ height: `calc(${bladeHeight}% - 90px)`, maxHeight: 'calc(100vh - 110px)' }}
       >
         {bladeHeight > 0 && (
-          <svg width="12" height="100%" viewBox="0 0 12 100" preserveAspectRatio="none" className="w-full h-full">
+          <svg width="16" height="100%" viewBox="0 0 16 100" preserveAspectRatio="none" className="w-full h-full">
             <defs>
               <filter id="saberGlow">
-                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
                 <feMerge>
+                  <feMergeNode in="coloredBlur"/>
                   <feMergeNode in="coloredBlur"/>
                   <feMergeNode in="coloredBlur"/>
                   <feMergeNode in="SourceGraphic"/>
                 </feMerge>
               </filter>
               <linearGradient id="bladeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#4169E1" stopOpacity="0.3"/>
-                <stop offset="5%" stopColor="#4169E1" stopOpacity="1"/>
-                <stop offset="95%" stopColor="#4169E1" stopOpacity="1"/>
-                <stop offset="100%" stopColor="#64B5F6" stopOpacity="1"/>
+                <stop offset="0%" stopColor="#4169E1" stopOpacity="0.2"/>
+                <stop offset="3%" stopColor="#4169E1" stopOpacity="1"/>
+                <stop offset="97%" stopColor="#4169E1" stopOpacity="1"/>
+                <stop offset="100%" stopColor="#87CEEB" stopOpacity="1"/>
+              </linearGradient>
+              <linearGradient id="coreGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.3"/>
+                <stop offset="5%" stopColor="#FFFFFF" stopOpacity="0.9"/>
+                <stop offset="95%" stopColor="#87CEEB" stopOpacity="0.9"/>
+                <stop offset="100%" stopColor="#4169E1" stopOpacity="1"/>
               </linearGradient>
             </defs>
-            {/* Outer glow */}
-            <rect x="0" y="0" width="12" height="100" fill="url(#bladeGradient)" filter="url(#saberGlow)" opacity="0.9" rx="6"/>
-            {/* Bright core */}
-            <rect x="3" y="0" width="6" height="100" fill="#5A9FD4" opacity="0.7" rx="3"/>
-            {/* Inner bright line */}
-            <rect x="5" y="0" width="2" height="100" fill="#87CEEB" opacity="0.9" rx="1"/>
+            
+            {/* Outer glow layer */}
+            <rect x="0" y="0" width="16" height="100" fill="url(#bladeGradient)" filter="url(#saberGlow)" opacity="0.95" rx="8"/>
+            
+            {/* Middle bright layer */}
+            <rect x="3" y="0" width="10" height="100" fill="url(#bladeGradient)" opacity="0.8" rx="5"/>
+            
+            {/* Core layer */}
+            <rect x="5" y="0" width="6" height="100" fill="url(#coreGradient)" opacity="0.9" rx="3"/>
+            
+            {/* Ultra-bright center line */}
+            <rect x="7" y="0" width="2" height="100" fill="#FFFFFF" opacity="0.95" rx="1"/>
+            
+            {/* Tip enhancement */}
+            <ellipse cx="8" cy="100" rx="6" ry="3" fill="#87CEEB" opacity="0.8" filter="url(#saberGlow)"/>
           </svg>
         )}
       </div>
@@ -291,6 +333,8 @@ const Spaceships = () => {
 // ==================== STAR WARS CRAWL COMPONENT ====================
 const StarWarsCrawl = ({ onComplete }) => {
   const [isVisible, setIsVisible] = useState(true);
+  const [showIntroText, setShowIntroText] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -300,11 +344,27 @@ const StarWarsCrawl = ({ onComplete }) => {
 
   useEffect(() => {
     if (!prefersReducedMotion) {
-      const timer = setTimeout(() => {
+      // Intro text exits smoothly at 3 seconds
+      const introTimer = setTimeout(() => {
+        setShowIntroText(false);
+      }, 3000);
+      
+      // Start fade out at 17 seconds (crawl fades while still moving)
+      const fadeTimer = setTimeout(() => {
+        setIsFadingOut(true);
+      }, 17000);
+      
+      // Complete at 19 seconds
+      const completeTimer = setTimeout(() => {
         setIsVisible(false);
         onComplete?.();
-      }, 12000);
-      return () => clearTimeout(timer);
+      }, 19000);
+      
+      return () => {
+        clearTimeout(introTimer);
+        clearTimeout(fadeTimer);
+        clearTimeout(completeTimer);
+      };
     } else {
       const timer = setTimeout(() => {
         setIsVisible(false);
@@ -317,8 +377,18 @@ const StarWarsCrawl = ({ onComplete }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden">
-      <div className="starwars-container">
+    <div className={`fixed inset-0 z-50 bg-black flex items-center justify-center overflow-hidden transition-opacity duration-1000 ${isFadingOut ? 'opacity-0' : 'opacity-100'}`}>
+      {/* Intro Text - "A long time ago..." */}
+      {!prefersReducedMotion && (
+        <div className={`absolute inset-0 flex items-center justify-center intro-text-container ${!showIntroText ? 'intro-exit' : ''}`}>
+          <p className="intro-text text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center px-8">
+            A long time ago in a galaxy far,<br/>far away....
+          </p>
+        </div>
+      )}
+      
+      {/* Crawl */}
+      <div className={`starwars-container ${showIntroText && !prefersReducedMotion ? 'opacity-0' : 'opacity-100 crawl-enter'}`}>
         <div className={`crawl-perspective ${prefersReducedMotion ? '' : 'crawl-animation'}`}>
           <div className="crawl-content">
             <div className="episode-title">
@@ -338,6 +408,63 @@ const StarWarsCrawl = ({ onComplete }) => {
       </div>
       
       <style>{`
+        .intro-text-container {
+          animation: introFadeIn 1.5s ease-in-out forwards;
+        }
+        
+        .intro-text-container.intro-exit {
+          animation: introMoveUp 1s ease-in-out forwards;
+        }
+        
+        @keyframes introFadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes introMoveUp {
+          0% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          80% {
+            opacity: 0.8;
+          }
+          100% {
+            opacity: 0;
+            transform: translateY(-120vh);
+          }
+        }
+        
+        .crawl-enter {
+          animation: crawlFadeIn 0.8s ease-in forwards;
+        }
+        
+        @keyframes crawlFadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+        
+        .intro-text {
+          color: #4DA8DA;
+          font-family: 'Courier New', monospace;
+          font-weight: 400;
+          letter-spacing: 0.1em;
+          line-height: 1.6;
+          text-shadow: 0 0 20px rgba(77, 168, 218, 0.8),
+                       0 0 40px rgba(77, 168, 218, 0.6),
+                       0 0 60px rgba(77, 168, 218, 0.4);
+        }
+        
         .starwars-container {
           perspective: 400px;
           width: 100%;
@@ -355,15 +482,21 @@ const StarWarsCrawl = ({ onComplete }) => {
         }
         
         .crawl-animation {
-          animation: crawl 12s linear forwards;
+          animation: crawl 16s linear forwards;
         }
         
         @keyframes crawl {
           0% {
             transform: rotateX(20deg) translateY(100vh);
+            opacity: 1;
+          }
+          90% {
+            transform: rotateX(20deg) translateY(-100%);
+            opacity: 1;
           }
           100% {
-            transform: rotateX(20deg) translateY(-150vh);
+            transform: rotateX(20deg) translateY(-120%);
+            opacity: 0;
           }
         }
         
@@ -460,12 +593,12 @@ const HoloCard = ({ children, className = '' }) => {
 };
 
 // ==================== CONSOLE BADGE COMPONENT ====================
-const ConsoleBadge = ({ label, value, icon: Icon, status = 'operational' }) => {
+const ConsoleBadge = ({ label, value, icon: Icon, status = 'Active' }) => {
   return (
     <div className="bg-zinc-900/80 backdrop-blur-sm border border-cyan-500/50 rounded-lg px-3 py-2 flex items-center gap-2 holographic-border">
       <div className="relative">
         <Icon className="text-cyan-400" size={16} />
-        {status === 'operational' && (
+        {status === 'Active' && (
           <div className="absolute -top-1 -right-1 w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
         )}
       </div>
@@ -482,7 +615,7 @@ export default function Portfolio() {
   const [showCrawl, setShowCrawl] = useState(true);
   const [starfieldSpeed, setStarfieldSpeed] = useState(1);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   const toggleHyperspace = () => {
     setStarfieldSpeed(prev => prev === 1 ? 2 : prev === 2 ? 0.5 : 1);
   };
@@ -495,12 +628,7 @@ export default function Portfolio() {
   }, []);
 
   const handleCrawlComplete = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setShowCrawl(false);
-      setIsTransitioning(false);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 500);
+    setShowCrawl(false);
   };
 
   useEffect(() => {
@@ -590,46 +718,47 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <Analytics />
       
       {showCrawl && !prefersReducedMotion && (
         <StarWarsCrawl onComplete={handleCrawlComplete} />
       )}
 
-      {isTransitioning && (
-        <div className="fixed inset-0 bg-black z-40 animate-fade-in" />
-      )}
-
-      <Starfield speed={starfieldSpeed} density={80} />
+      <Starfield speed={starfieldSpeed} density={90} />
       <Spaceships />
 
-      {/* Nebula Background Effects */}
+      {/* Enhanced Nebula Background Effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }}>
         {/* Purple Nebula - Top Right */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] opacity-20">
-          <div className="w-full h-full bg-gradient-radial from-purple-600/40 via-purple-500/20 to-transparent blur-3xl animate-nebula-pulse"></div>
+        <div className="absolute top-0 right-0 w-[900px] h-[900px] opacity-25">
+          <div className="w-full h-full bg-gradient-radial from-purple-600/50 via-purple-500/25 to-transparent blur-3xl animate-nebula-pulse"></div>
         </div>
         
         {/* Cyan Nebula - Bottom Left */}
-        <div className="absolute bottom-0 left-0 w-[700px] h-[700px] opacity-25">
-          <div className="w-full h-full bg-gradient-radial from-cyan-500/40 via-cyan-400/20 to-transparent blur-3xl animate-nebula-pulse-delayed"></div>
+        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] opacity-30">
+          <div className="w-full h-full bg-gradient-radial from-cyan-500/50 via-cyan-400/25 to-transparent blur-3xl animate-nebula-pulse-delayed"></div>
         </div>
         
         {/* Pink Nebula - Middle */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-15">
-          <div className="w-full h-full bg-gradient-radial from-pink-500/30 via-pink-400/15 to-transparent blur-3xl animate-nebula-pulse-slow"></div>
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] opacity-20">
+          <div className="w-full h-full bg-gradient-radial from-pink-500/40 via-pink-400/20 to-transparent blur-3xl animate-nebula-pulse-slow"></div>
+        </div>
+        
+        {/* Blue Nebula - Top Left */}
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] opacity-20">
+          <div className="w-full h-full bg-gradient-radial from-blue-500/40 via-blue-400/20 to-transparent blur-3xl animate-nebula-pulse"></div>
         </div>
         
         {/* Shooting stars */}
         <div className="shooting-star" style={{ top: '20%', left: '10%', animationDelay: '2s' }}></div>
         <div className="shooting-star" style={{ top: '60%', left: '80%', animationDelay: '5s' }}></div>
         <div className="shooting-star" style={{ top: '40%', left: '50%', animationDelay: '8s' }}></div>
+        <div className="shooting-star" style={{ top: '80%', left: '20%', animationDelay: '11s' }}></div>
       </div>
 
       {/* Hyperspace Toggle Button - Fixed position */}
       <button
         onClick={toggleHyperspace}
-        className="fixed bottom-6 left-6 z-50 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 p-3 sm:p-4 rounded-full transition-all holographic-btn shadow-lg"
+        className="fixed bottom-6 left-6 z-50 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 p-3 sm:p-4 rounded-full transition-all holographic-btn shadow-2xl"
         aria-label="Toggle hyperspace speed"
         title={`Hyperspace: ${starfieldSpeed === 2 ? 'Fast' : starfieldSpeed === 0.5 ? 'Slow' : 'Normal'}`}
       >
@@ -671,12 +800,12 @@ export default function Portfolio() {
                     <span className="tracking-widest starwars-text">JEDI MASTER OF CODE</span>
                   </div>
                   
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-white leading-tight starwars-title">
-                    Sourabh
-                    <span className="block bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent" style={{
-                      textShadow: '0 0 20px rgba(100, 200, 255, 0.8), 0 0 40px rgba(100, 200, 255, 0.5)'
-                    }}>
-                      Shrivastava
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight">
+                    <span className="block mb-2 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent starwars-title">
+                      SOURABH
+                    </span>
+                    <span className="block bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent starwars-title">
+                      SHRIVASTAVA
                     </span>
                   </h1>
                   
@@ -690,7 +819,7 @@ export default function Portfolio() {
                   </p>
 
                   <div className="flex gap-2 justify-center lg:justify-start flex-wrap">
-                    <ConsoleBadge label="STATUS" value="OPERATIONAL" icon={Cpu} status="operational" />
+                    <ConsoleBadge label="STATUS" value="Active" icon={Cpu} status="Active" />
                     <ConsoleBadge label="MISSIONS" value="10+" icon={Rocket} />
                     <ConsoleBadge label="SECTOR" value="EARTH" icon={Globe} />
                   </div>
@@ -698,7 +827,7 @@ export default function Portfolio() {
                   <div className="flex gap-3 justify-center lg:justify-start flex-wrap pt-4">
                     <a 
                       href="#contact" 
-                      className="group flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 px-4 sm:px-5 py-2.5 rounded-xl transition-all font-semibold text-sm text-white holographic-btn"
+                      className="group flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 px-4 sm:px-5 py-2.5 rounded-xl transition-all font-semibold text-sm text-white holographic-btn"
                       aria-label="Navigate to contact section"
                     >
                       <Mail size={16} /> 
@@ -709,7 +838,7 @@ export default function Portfolio() {
                       href="https://drive.google.com/file/d/1fv1wliEP6k_jKZAu7g_ZtD4-RVPLBEF6/view?usp=drivesdk"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 px-4 sm:px-5 py-2.5 rounded-xl transition-all font-semibold text-sm text-white holographic-btn"
+                      className="flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 px-4 sm:px-5 py-2.5 rounded-xl transition-all font-semibold text-sm text-white holographic-btn-purple"
                       aria-label="View resume"
                     >
                       <FileText size={16} /> 
@@ -717,7 +846,7 @@ export default function Portfolio() {
                     </a>
                     <a 
                       href="#projects" 
-                      className="flex items-center gap-2 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 px-4 sm:px-5 py-2.5 rounded-xl transition-all font-semibold text-sm text-white holographic-btn"
+                      className="flex items-center gap-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 px-4 sm:px-5 py-2.5 rounded-xl transition-all font-semibold text-sm text-white holographic-btn-green"
                       aria-label="Navigate to projects section"
                     >
                       <Rocket size={16} /> 
@@ -742,7 +871,7 @@ export default function Portfolio() {
             </div>
             
             <HoloCard className="group">
-              <div className="relative bg-zinc-900/60 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all duration-500 holographic-border">
+              <div className="relative bg-zinc-900/70 backdrop-blur-md rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all duration-500 holographic-border">
                 <div className="flex flex-col sm:flex-row items-start gap-4 mb-6">
                   <div className="bg-cyan-500/20 p-3 rounded-xl border border-cyan-500/40 holographic-border">
                     <Code2 className="text-cyan-400" size={24} />
@@ -762,7 +891,7 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                <div className="bg-zinc-800/50 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-purple-500/30 mt-6 sm:mt-8 holographic-border-purple">
+                <div className="bg-zinc-800/60 backdrop-blur-sm rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-purple-500/40 mt-6 sm:mt-8 holographic-border-purple">
                   <div className="flex items-center gap-3 mb-3 sm:mb-4">
                     <div className="bg-purple-500/20 p-2 rounded-lg border border-purple-500/40">
                       <Award className="text-purple-400" size={20} />
@@ -799,7 +928,7 @@ export default function Portfolio() {
                 
                 return (
                   <HoloCard key={category} className="group">
-                    <div className="relative bg-zinc-900/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all duration-500 h-full holographic-border">
+                    <div className="relative bg-zinc-900/70 backdrop-blur-md rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all duration-500 h-full holographic-border">
                       <div className="flex items-center gap-3 mb-5 sm:mb-6">
                         <div className="bg-cyan-500/20 p-2 rounded-lg border border-cyan-500/40 holographic-border">
                           <Icon className="text-cyan-400" size={20} />
@@ -842,7 +971,7 @@ export default function Portfolio() {
                 const Icon = project.icon;
                 return (
                   <HoloCard key={idx} className="group">
-                    <div className="relative bg-zinc-900/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-6 sm:p-8 border-2 border-purple-500/40 hover:border-purple-500/70 transition-all duration-500 h-full holographic-border-purple">
+                    <div className="relative bg-zinc-900/70 backdrop-blur-md rounded-xl sm:rounded-2xl p-6 sm:p-8 border-2 border-purple-500/50 hover:border-purple-500/80 transition-all duration-500 h-full holographic-border-purple">
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center gap-3">
                           <div className="bg-purple-500/20 p-2.5 sm:p-3 rounded-xl border border-purple-500/40 group-hover:bg-purple-500/30 transition-colors holographic-border-purple">
@@ -894,7 +1023,7 @@ export default function Portfolio() {
                 const Icon = interest.icon;
                 return (
                   <HoloCard key={idx} className="group">
-                    <div className="relative bg-zinc-900/60 backdrop-blur-md rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all duration-500 holographic-border">
+                    <div className="relative bg-zinc-900/70 backdrop-blur-md rounded-xl sm:rounded-2xl p-5 sm:p-6 border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all duration-500 holographic-border">
                       <div className="flex items-start gap-3 sm:gap-4">
                         <div className="bg-cyan-500/20 p-2.5 sm:p-3 rounded-xl border border-cyan-500/40 group-hover:bg-cyan-500/30 transition-colors shrink-0 holographic-border">
                           <Icon className="text-cyan-400" size={20} />
@@ -934,65 +1063,6 @@ export default function Portfolio() {
                   </radialGradient>
                 </defs>
                 
-                {/* Main body - circular */}
-                <ellipse cx="90" cy="60" rx="45" ry="35" fill="#6B7280" stroke="#4B5563" strokeWidth="2"/>
-                <ellipse cx="90" cy="60" rx="38" ry="28" fill="#9CA3AF" opacity="0.3"/>
-                
-                {/* Cockpit */}
-                <ellipse cx="95" cy="55" rx="12" ry="10" fill="#1F2937" stroke="#374151" strokeWidth="1"/>
-                <ellipse cx="95" cy="55" rx="8" ry="6" fill="#4169E1" opacity="0.6" filter="url(#falconGlow)"/>
-                
-                {/* Left mandible */}
-                <path d="M 50 60 Q 30 50 20 55 L 15 60 L 20 65 Q 30 70 50 60 Z" fill="#6B7280" stroke="#4B5563" strokeWidth="2"/>
-                <path d="M 45 60 L 25 58 L 25 62 L 45 60 Z" fill="#9CA3AF" opacity="0.4"/>
-                
-                {/* Right mandible */}
-                <path d="M 130 60 Q 150 50 160 55 L 165 60 L 160 65 Q 150 70 130 60 Z" fill="#6B7280" stroke="#4B5563" strokeWidth="2"/>
-                <path d="M 135 60 L 155 58 L 155 62 L 135 60 Z" fill="#9CA3AF" opacity="0.4"/>
-                
-                {/* Radar dish */}
-                <ellipse cx="110" cy="45" rx="8" ry="3" fill="#4B5563" stroke="#374151" strokeWidth="1"/>
-                <line x1="110" y1="48" x2="110" y2="55" stroke="#4B5563" strokeWidth="2"/>
-                
-                {/* Engine glow */}
-                <ellipse cx="55" cy="75" rx="8" ry="6" fill="url(#engineGlow)" opacity="0.8">
-                  <animate attributeName="opacity" values="0.6;1;0.6" dur="1s" repeatCount="indefinite"/>
-                </ellipse>
-                <ellipse cx="75" cy="80" rx="7" ry="5" fill="url(#engineGlow)" opacity="0.7">
-                  <animate attributeName="opacity" values="0.5;0.9;0.5" dur="1.2s" repeatCount="indefinite"/>
-                </ellipse>
-                <ellipse cx="105" cy="80" rx="7" ry="5" fill="url(#engineGlow)" opacity="0.7">
-                  <animate attributeName="opacity" values="0.7;1;0.7" dur="0.9s" repeatCount="indefinite"/>
-                </ellipse>
-                <ellipse cx="125" cy="75" rx="8" ry="6" fill="url(#engineGlow)" opacity="0.8">
-                  <animate attributeName="opacity" values="0.6;1;0.6" dur="1.1s" repeatCount="indefinite"/>
-                </ellipse>
-                
-                {/* Panel details */}
-                <line x1="70" y1="50" x2="110" y2="50" stroke="#4B5563" strokeWidth="1" opacity="0.5"/>
-                <line x1="70" y1="70" x2="110" y2="70" stroke="#4B5563" strokeWidth="1" opacity="0.5"/>
-                <circle cx="80" cy="60" r="3" fill="#374151" opacity="0.6"/>
-                <circle cx="100" cy="60" r="3" fill="#374151" opacity="0.6"/>
-              </svg>
-            </div>
-            
-            {/* Mobile Falcon - smaller version */}
-            <div className="absolute -top-12 -right-5 opacity-50 animate-float sm:hidden">
-              <svg width="90" height="60" viewBox="0 0 180 120" className="drop-shadow-xl">
-                <defs>
-                  <filter id="falconGlowMobile">
-                    <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                  <radialGradient id="engineGlowMobile">
-                    <stop offset="0%" stopColor="#4169E1" stopOpacity="1"/>
-                    <stop offset="100%" stopColor="#4169E1" stopOpacity="0"/>
-                  </radialGradient>
-                </defs>
-                
                 <ellipse cx="90" cy="60" rx="45" ry="35" fill="#6B7280" stroke="#4B5563" strokeWidth="2"/>
                 <ellipse cx="90" cy="60" rx="38" ry="28" fill="#9CA3AF" opacity="0.3"/>
                 <ellipse cx="95" cy="55" rx="12" ry="10" fill="#1F2937" stroke="#374151" strokeWidth="1"/>
@@ -1026,7 +1096,7 @@ export default function Portfolio() {
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
               <a 
                 href="mailto:shrivastavasourabh03@gmail.com" 
-                className="flex items-center gap-3 bg-zinc-900/60 backdrop-blur-md px-4 sm:px-5 py-4 sm:py-5 rounded-xl sm:rounded-2xl border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all group holographic-border"
+                className="flex items-center gap-3 bg-zinc-900/70 backdrop-blur-md px-4 sm:px-5 py-4 sm:py-5 rounded-xl sm:rounded-2xl border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all group holographic-border"
                 aria-label="Send email to shrivastavasourabh03@gmail.com"
               >
                 <div className="bg-cyan-500/20 p-2.5 sm:p-3 rounded-xl border border-cyan-500/40 group-hover:bg-cyan-500/30 transition-colors holographic-border">
@@ -1040,7 +1110,7 @@ export default function Portfolio() {
               
               <a 
                 href="tel:+918269693742" 
-                className="flex items-center gap-3 bg-zinc-900/60 backdrop-blur-md px-4 sm:px-5 py-4 sm:py-5 rounded-xl sm:rounded-2xl border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all group holographic-border"
+                className="flex items-center gap-3 bg-zinc-900/70 backdrop-blur-md px-4 sm:px-5 py-4 sm:py-5 rounded-xl sm:rounded-2xl border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all group holographic-border"
                 aria-label="Call +91 8269693742"
               >
                 <div className="bg-cyan-500/20 p-2.5 sm:p-3 rounded-xl border border-cyan-500/40 group-hover:bg-cyan-500/30 transition-colors holographic-border">
@@ -1059,7 +1129,7 @@ export default function Portfolio() {
                 href="https://github.com/sourabh-S7" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-zinc-900/60 backdrop-blur-md p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all group holographic-border"
+                className="bg-zinc-900/70 backdrop-blur-md p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all group holographic-border"
                 aria-label="Visit GitHub profile"
               >
                 <Github className="text-gray-300 group-hover:text-cyan-400 group-hover:scale-110 transition-all" size={22} />
@@ -1069,7 +1139,7 @@ export default function Portfolio() {
                 href="https://www.linkedin.com/in/sourabh-shrivastava-742b64329" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-zinc-900/60 backdrop-blur-md p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all group holographic-border"
+                className="bg-zinc-900/70 backdrop-blur-md p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all group holographic-border"
                 aria-label="Visit LinkedIn profile"
               >
                 <Linkedin className="text-gray-300 group-hover:text-cyan-400 group-hover:scale-110 transition-all" size={22} />
@@ -1079,7 +1149,7 @@ export default function Portfolio() {
                 href="https://www.instagram.com/sourabh_shrivastava7" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="bg-zinc-900/60 backdrop-blur-md p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-cyan-500/40 hover:border-cyan-500/70 transition-all group holographic-border"
+                className="bg-zinc-900/70 backdrop-blur-md p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-cyan-500/50 hover:border-cyan-500/80 transition-all group holographic-border"
                 aria-label="Visit Instagram profile"
               >
                 <Instagram className="text-gray-300 group-hover:text-cyan-400 group-hover:scale-110 transition-all" size={22} />
@@ -1180,53 +1250,232 @@ export default function Portfolio() {
         }
 
         .holographic-border {
-          box-shadow: 0 0 10px rgba(100, 200, 255, 0.3), 0 0 20px rgba(100, 200, 255, 0.2);
+          box-shadow: 0 0 15px rgba(100, 200, 255, 0.4), 0 0 30px rgba(100, 200, 255, 0.3);
           transition: all 0.3s ease;
         }
 
         .holographic-border:hover {
-          box-shadow: 0 0 20px rgba(100, 200, 255, 0.5), 0 0 40px rgba(100, 200, 255, 0.3), 0 0 60px rgba(100, 200, 255, 0.2);
+          box-shadow: 0 0 25px rgba(100, 200, 255, 0.6), 0 0 50px rgba(100, 200, 255, 0.4), 0 0 75px rgba(100, 200, 255, 0.3);
         }
 
         .holographic-border-purple {
-          box-shadow: 0 0 10px rgba(147, 112, 219, 0.3), 0 0 20px rgba(147, 112, 219, 0.2);
+          box-shadow: 0 0 15px rgba(147, 112, 219, 0.4), 0 0 30px rgba(147, 112, 219, 0.3);
           transition: all 0.3s ease;
         }
 
         .holographic-border-purple:hover {
-          box-shadow: 0 0 20px rgba(147, 112, 219, 0.5), 0 0 40px rgba(147, 112, 219, 0.3), 0 0 60px rgba(147, 112, 219, 0.2);
+          box-shadow: 0 0 25px rgba(147, 112, 219, 0.6), 0 0 50px rgba(147, 112, 219, 0.4), 0 0 75px rgba(147, 112, 219, 0.3);
         }
 
         .holographic-border-pink {
-          box-shadow: 0 0 10px rgba(255, 105, 180, 0.3), 0 0 20px rgba(255, 105, 180, 0.2);
+          box-shadow: 0 0 15px rgba(255, 105, 180, 0.4), 0 0 30px rgba(255, 105, 180, 0.3);
           transition: all 0.3s ease;
         }
 
         .holographic-border-pink:hover {
-          box-shadow: 0 0 20px rgba(255, 105, 180, 0.5), 0 0 40px rgba(255, 105, 180, 0.3), 0 0 60px rgba(255, 105, 180, 0.2);
+          box-shadow: 0 0 25px rgba(255, 105, 180, 0.6), 0 0 50px rgba(255, 105, 180, 0.4), 0 0 75px rgba(255, 105, 180, 0.3);
         }
 
         .holographic-border-green {
-          box-shadow: 0 0 10px rgba(50, 205, 50, 0.3), 0 0 20px rgba(50, 205, 50, 0.2);
+          box-shadow: 0 0 15px rgba(50, 205, 50, 0.4), 0 0 30px rgba(50, 205, 50, 0.3);
         }
 
         .holographic-btn {
-          box-shadow: 0 0 20px rgba(100, 200, 255, 0.6), 0 0 40px rgba(100, 200, 255, 0.3);
+          box-shadow: 0 0 25px rgba(100, 200, 255, 0.7), 0 0 50px rgba(100, 200, 255, 0.4);
           transition: all 0.3s ease;
         }
 
         .holographic-btn:hover {
-          box-shadow: 0 0 30px rgba(100, 200, 255, 0.8), 0 0 60px rgba(100, 200, 255, 0.5), 0 0 90px rgba(100, 200, 255, 0.3);
+          box-shadow: 0 0 35px rgba(100, 200, 255, 0.9), 0 0 70px rgba(100, 200, 255, 0.6), 0 0 100px rgba(100, 200, 255, 0.4);
           transform: translateY(-2px);
         }
 
-        .starwars-text {
-          font-family: 'Courier New', monospace;
-          letter-spacing: 0.05em;
+        .holographic-btn-purple {
+          box-shadow: 0 0 25px rgba(147, 112, 219, 0.7), 0 0 50px rgba(147, 112, 219, 0.4);
+          transition: all 0.3s ease;
         }
 
-        .starwars-title {
-          text-shadow: 0 0 20px rgba(100, 200, 255, 0.6), 0 0 40px rgba(147, 112, 219, 0.4);
+        .holographic-btn-purple:hover {
+          box-shadow: 0 0 35px rgba(147, 112, 219, 0.9), 0 0 70px rgba(147, 112, 219, 0.6), 0 0 100px rgba(147, 112, 219, 0.4);
+          transform: translateY(-2px);
+        }
+
+        .holographic-btn-green {
+          box-shadow: 0 0 25px rgba(50, 205, 50, 0.7), 0 0 50px rgba(50, 205, 50, 0.4);
+          transition: all 0.3s ease;
+        }
+
+        .holographic-btn-green:hover {
+          box-shadow: 0 0 35px rgba(50, 205, 50, 0.9), 0 0 70px rgba(50, 205, 50, 0.6), 0 0 100px rgba(50, 205, 50, 0.4);
+          transform: translateY(-2px);
+        }
+
+        /* Star Wars Logo Style Name - Main titles */
+        .starwars-logo-name {
+          font-family: 'Impact', 'Arial Black', sans-serif;
+          font-weight: 900;
+          letter-spacing: 0.03em;
+          display: inline-block;
+          position: relative;
+          
+          /* Black fill inside */
+          color: #000000;
+          
+          /* Thick golden/yellow outline - Star Wars official yellow */
+          -webkit-text-stroke: 6px #FFC500;
+          text-stroke: 6px #FFC500;
+          paint-order: stroke fill;
+          
+          /* Wide, compressed look like Star Wars logo */
+          transform: scaleY(1.15) scaleX(1.05);
+          
+          /* Multiple shadow layers for 3D depth and glow */
+          text-shadow: 
+            /* Bright golden glow around the outline */
+            0 0 30px rgba(255, 197, 0, 0.9),
+            0 0 60px rgba(255, 197, 0, 0.7),
+            0 0 90px rgba(255, 197, 0, 0.5),
+            
+            /* Inner golden shine for depth */
+            inset 0 0 10px rgba(255, 215, 0, 0.8),
+            
+            /* 3D effect - darker golden layers */
+            3px 3px 0 #DAA520,
+            4px 4px 0 #B8860B,
+            5px 5px 0 #9B7500,
+            6px 6px 0 #8B6914,
+            
+            /* Deep shadow for dramatic effect */
+            8px 8px 15px rgba(0, 0, 0, 0.9),
+            10px 10px 20px rgba(0, 0, 0, 0.7),
+            12px 12px 30px rgba(0, 0, 0, 0.5);
+          
+          /* Slight vertical spacing */
+          line-height: 0.9;
+        }
+
+        /* Star Wars Logo Style for Section Titles */
+        .starwars-logo-title {
+          font-family: 'Impact', 'Arial Black', sans-serif;
+          font-weight: 900;
+          letter-spacing: 0.05em;
+          display: inline-block;
+          position: relative;
+          
+          /* Black fill inside */
+          color: #000000;
+          
+          /* Thick golden/yellow outline */
+          -webkit-text-stroke: 4px #FFC500;
+          text-stroke: 4px #FFC500;
+          paint-order: stroke fill;
+          
+          /* Wide look */
+          transform: scaleY(1.12) scaleX(1.03);
+          
+          /* Glowing shadow effects */
+          text-shadow: 
+            /* Golden glow */
+            0 0 25px rgba(255, 197, 0, 0.9),
+            0 0 50px rgba(255, 197, 0, 0.6),
+            0 0 75px rgba(255, 197, 0, 0.4),
+            
+            /* 3D depth */
+            2px 2px 0 #DAA520,
+            3px 3px 0 #B8860B,
+            4px 4px 0 #9B7500,
+            
+            /* Shadow */
+            6px 6px 12px rgba(0, 0, 0, 0.8),
+            8px 8px 18px rgba(0, 0, 0, 0.6);
+          
+          line-height: 1;
+        }
+
+        /* Star Wars Logo Style for Subtitle Text */
+        .starwars-logo-text {
+          font-family: 'Impact', 'Arial Black', sans-serif;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          display: inline-block;
+          position: relative;
+          
+          /* Black fill */
+          color: #000000;
+          
+          /* Medium golden outline */
+          -webkit-text-stroke: 2px #FFC500;
+          text-stroke: 2px #FFC500;
+          paint-order: stroke fill;
+          
+          /* Subtle transformation */
+          transform: scaleY(1.08) scaleX(1.02);
+          
+          /* Lighter glow effect */
+          text-shadow: 
+            0 0 20px rgba(255, 197, 0, 0.8),
+            0 0 40px rgba(255, 197, 0, 0.5),
+            1px 1px 0 #DAA520,
+            2px 2px 0 #B8860B,
+            4px 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Adjust for medium screens */
+        @media (max-width: 1024px) {
+          .starwars-logo-name {
+            -webkit-text-stroke: 5px #FFC500;
+            text-stroke: 5px #FFC500;
+            letter-spacing: 0.025em;
+          }
+          
+          .starwars-logo-title {
+            -webkit-text-stroke: 3px #FFC500;
+            text-stroke: 3px #FFC500;
+          }
+          
+          .starwars-logo-text {
+            -webkit-text-stroke: 1.5px #FFC500;
+            text-stroke: 1.5px #FFC500;
+          }
+        }
+
+        /* Adjust for tablets */
+        @media (max-width: 768px) {
+          .starwars-logo-name {
+            -webkit-text-stroke: 4px #FFC500;
+            text-stroke: 4px #FFC500;
+            letter-spacing: 0.02em;
+          }
+          
+          .starwars-logo-title {
+            -webkit-text-stroke: 2.5px #FFC500;
+            text-stroke: 2.5px #FFC500;
+          }
+          
+          .starwars-logo-text {
+            -webkit-text-stroke: 1.2px #FFC500;
+            text-stroke: 1.2px #FFC500;
+          }
+        }
+        
+        /* Adjust for mobile */
+        @media (max-width: 480px) {
+          .starwars-logo-name {
+            -webkit-text-stroke: 3px #FFC500;
+            text-stroke: 3px #FFC500;
+            letter-spacing: 0.015em;
+            transform: scaleY(1.1) scaleX(1.03);
+          }
+          
+          .starwars-logo-title {
+            -webkit-text-stroke: 2px #FFC500;
+            text-stroke: 2px #FFC500;
+          }
+          
+          .starwars-logo-text {
+            -webkit-text-stroke: 1px #FFC500;
+            text-stroke: 1px #FFC500;
+          }
         }
 
         .bg-gradient-radial {
@@ -1235,33 +1484,33 @@ export default function Portfolio() {
 
         @keyframes nebula-pulse {
           0%, 100% {
-            opacity: 0.2;
+            opacity: 0.25;
             transform: scale(1);
           }
           50% {
-            opacity: 0.4;
+            opacity: 0.45;
             transform: scale(1.1);
           }
         }
 
         @keyframes nebula-pulse-delayed {
           0%, 100% {
-            opacity: 0.25;
+            opacity: 0.3;
             transform: scale(1) rotate(0deg);
           }
           50% {
-            opacity: 0.45;
+            opacity: 0.5;
             transform: scale(1.15) rotate(5deg);
           }
         }
 
         @keyframes nebula-pulse-slow {
           0%, 100% {
-            opacity: 0.15;
+            opacity: 0.2;
             transform: scale(1);
           }
           50% {
-            opacity: 0.3;
+            opacity: 0.35;
             transform: scale(1.2);
           }
         }
