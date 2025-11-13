@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Github, Linkedin, Instagram, Mail, Phone, Code2, Rocket, Award, Users, Dumbbell, ShoppingCart, Sparkles, ArrowRight, Database, Layers, Palette, Terminal, Cpu, Globe, FileText, BookOpen, Zap } from 'lucide-react';
+import { Analytics } from "@vercel/analytics/react";
 
 // ==================== STARFIELD COMPONENT ====================
-const Starfield = ({ speed = 1, density = 150 }) => {
+const Starfield = ({ speed = 1, density = 70 }) => {
   const canvasRef = useRef(null);
   const starsRef = useRef([]);
   const animationRef = useRef(null);
@@ -115,7 +116,7 @@ const LightsaberScrollbar = () => {
   const bladeHeight = scrollProgress;
 
   return (
-    <div className="fixed right-2 top-0 h-full w-8 z-50 pointer-events-none flex flex-col items-center">
+    <div className="fixed right-5 sm:right-6 md:right-8 top-0 h-full w-8 z-50 pointer-events-none flex flex-col items-center">
       {/* Hilt at the top */}
       <div className="mt-4">
         <svg width="32" height="60" viewBox="0 0 32 60">
@@ -137,7 +138,7 @@ const LightsaberScrollbar = () => {
           <line x1="10" y1="35" x2="22" y2="35" stroke="#3a3a3a" strokeWidth="1"/>
           {/* Button */}
           <circle cx="16" cy="10" r="3" fill="#4a4a4a" stroke="#5a5a5a" strokeWidth="1"/>
-          <circle cx="16" cy="10" r="1.5" fill="#DC143C" opacity="0.8">
+          <circle cx="16" cy="10" r="1.5" fill="#4169E1" opacity="0.8">
             <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
           </circle>
           {/* Emitter */}
@@ -145,7 +146,7 @@ const LightsaberScrollbar = () => {
         </svg>
       </div>
       
-      {/* Blade - grows as you scroll */}
+      {/* Blade - grows as you scroll - Blue color */}
       <div 
         className="relative w-3 transition-all duration-100"
         style={{ height: `calc(${bladeHeight}% - 80px)`, maxHeight: 'calc(100vh - 100px)' }}
@@ -162,18 +163,18 @@ const LightsaberScrollbar = () => {
                 </feMerge>
               </filter>
               <linearGradient id="bladeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#DC143C" stopOpacity="0.3"/>
-                <stop offset="5%" stopColor="#DC143C" stopOpacity="1"/>
-                <stop offset="95%" stopColor="#DC143C" stopOpacity="1"/>
-                <stop offset="100%" stopColor="#FF6B6B" stopOpacity="1"/>
+                <stop offset="0%" stopColor="#4169E1" stopOpacity="0.3"/>
+                <stop offset="5%" stopColor="#4169E1" stopOpacity="1"/>
+                <stop offset="95%" stopColor="#4169E1" stopOpacity="1"/>
+                <stop offset="100%" stopColor="#64B5F6" stopOpacity="1"/>
               </linearGradient>
             </defs>
             {/* Outer glow */}
             <rect x="0" y="0" width="12" height="100" fill="url(#bladeGradient)" filter="url(#saberGlow)" opacity="0.9" rx="6"/>
             {/* Bright core */}
-            <rect x="3" y="0" width="6" height="100" fill="#FF4444" opacity="0.7" rx="3"/>
+            <rect x="3" y="0" width="6" height="100" fill="#5A9FD4" opacity="0.7" rx="3"/>
             {/* Inner bright line */}
-            <rect x="5" y="0" width="2" height="100" fill="#FF6B6B" opacity="0.9" rx="1"/>
+            <rect x="5" y="0" width="2" height="100" fill="#87CEEB" opacity="0.9" rx="1"/>
           </svg>
         )}
       </div>
@@ -322,7 +323,7 @@ const StarWarsCrawl = ({ onComplete }) => {
           <div className="crawl-content">
             <div className="episode-title">
               <p className="episode-number">EPISODE IV</p>
-              <h1 className="episode-name">THE DEVELOPER'S JOURNEY</h1>
+              <h1 className="episode-name">A NEW CODE</h1>
             </div>
             
             <div className="crawl-text">
@@ -589,6 +590,8 @@ export default function Portfolio() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      <Analytics />
+      
       {showCrawl && !prefersReducedMotion && (
         <StarWarsCrawl onComplete={handleCrawlComplete} />
       )}
@@ -597,7 +600,7 @@ export default function Portfolio() {
         <div className="fixed inset-0 bg-black z-40 animate-fade-in" />
       )}
 
-      <Starfield speed={starfieldSpeed} density={200} />
+      <Starfield speed={starfieldSpeed} density={80} />
       <Spaceships />
 
       {/* Nebula Background Effects */}
@@ -626,7 +629,7 @@ export default function Portfolio() {
       {/* Hyperspace Toggle Button - Fixed position */}
       <button
         onClick={toggleHyperspace}
-        className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 p-3 sm:p-4 rounded-full transition-all holographic-btn shadow-lg"
+        className="fixed bottom-6 left-6 z-50 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 p-3 sm:p-4 rounded-full transition-all holographic-btn shadow-lg"
         aria-label="Toggle hyperspace speed"
         title={`Hyperspace: ${starfieldSpeed === 2 ? 'Fast' : starfieldSpeed === 0.5 ? 'Slow' : 'Normal'}`}
       >
@@ -644,7 +647,7 @@ export default function Portfolio() {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
+        <section className="min-h-screen flex items-center justify-center px-16 sm:px-20 md:px-24 lg:px-8 py-12 sm:py-20">
           <div className="max-w-7xl w-full">
             <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="flex-shrink-0">
@@ -728,7 +731,7 @@ export default function Portfolio() {
         </section>
 
         {/* About Section */}
-        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <section className="py-12 sm:py-16 md:py-20 px-16 sm:px-20 md:px-24 lg:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-center gap-3 mb-8 sm:mb-12">
               <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
@@ -779,7 +782,7 @@ export default function Portfolio() {
         </section>
 
         {/* Tech Stack */}
-        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <section className="py-12 sm:py-16 md:py-20 px-16 sm:px-20 md:px-24 lg:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-center gap-3 mb-8 sm:mb-12">
               <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
@@ -824,7 +827,7 @@ export default function Portfolio() {
         </section>
 
         {/* Projects */}
-        <section id="projects" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <section id="projects" className="py-12 sm:py-16 md:py-20 px-16 sm:px-20 md:px-24 lg:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-center gap-3 mb-8 sm:mb-12">
               <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
@@ -876,7 +879,7 @@ export default function Portfolio() {
         </section>
 
         {/* Interests */}
-        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <section className="py-12 sm:py-16 md:py-20 px-16 sm:px-20 md:px-24 lg:px-6">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-center gap-3 mb-8 sm:mb-12">
               <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent via-cyan-500 to-transparent"></div>
@@ -912,7 +915,7 @@ export default function Portfolio() {
         </section>
 
         {/* Contact */}
-        <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6">
+        <section id="contact" className="py-12 sm:py-16 md:py-20 px-16 sm:px-20 md:px-24 lg:px-6">
           <div className="max-w-4xl mx-auto text-center relative">
             {/* Millennium Falcon */}
             <div className="absolute -top-20 -right-10 sm:-right-20 opacity-60 animate-float hidden sm:block">
@@ -1086,7 +1089,7 @@ export default function Portfolio() {
         </section>
 
         {/* Footer with Star Wars Constellation */}
-        <footer className="py-6 sm:py-8 px-4 sm:px-6 border-t border-cyan-500/40 text-center relative">
+        <footer className="py-6 sm:py-8 px-16 sm:px-20 md:px-24 lg:px-6 border-t border-cyan-500/40 text-center relative">
           <div className="absolute inset-0 overflow-hidden opacity-20">
             <svg width="100%" height="100%" className="absolute inset-0">
               <defs>
@@ -1138,6 +1141,16 @@ export default function Portfolio() {
 
       {/* Global Styles */}
       <style>{`
+        /* Hide default scrollbar */
+        ::-webkit-scrollbar {
+          display: none;
+        }
+        
+        html {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        
         @keyframes holographicPulse {
           0%, 100% {
             opacity: 0.8;
